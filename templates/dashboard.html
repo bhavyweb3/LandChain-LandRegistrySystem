@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('transfer') }}">Transfer</a>
+        <a href="{{ url_for('verify') }}">Verify</a>
+        <a href="{{ url_for('view_blockchain') }}">Blockchain</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</nav>
+
+<main class="container">
+    <h1>Dashboard</h1>
+    <p>Land records and blockchain activity.</p>
+
+    <div class="stats">
+        <div class="stat"><b>{{ registrations }}</b><span>Registrations</span></div>
+        <div class="stat"><b>{{ transfers }}</b><span>Transfers</span></div>
+        <div class="stat"><b>{{ blocks }}</b><span>Total Blocks</span></div>
+        <div class="stat">
+            <b class="{{ 'status-valid' if valid else 'status-invalid' }}">{{ 'VALID' if valid else 'INVALID' }}</b>
+            <span>Blockchain</span>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a class="button" href="{{ url_for('register') }}">Register Land</a>
+        <a class="button" href="{{ url_for('transfer') }}">Transfer Ownership</a>
+        <a class="button secondary" href="{{ url_for('verify') }}">Verify Land</a>
+    </div>
+
+    <h2>Land Records</h2>
+    <form class="search" method="GET">
+        <input type="text" name="search" value="{{ search }}" placeholder="Search by Land ID, owner, location or survey number">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if lands %}
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>Land ID</th>
+                <th>Owner</th>
+                <th>Location</th>
+                <th>Area</th>
+                <th>Status</th>
+                <th>View</th>
+            </tr>
+            {% for land in lands %}
+            <tr>
+                <td>{{ land.land_id }}</td>
+                <td>{{ land.owner }}</td>
+                <td>{{ land.location }}</td>
+                <td>{{ land.area }}</td>
+                <td>{{ land.status }}</td>
+                <td><a href="{{ url_for('land_details', land_id=land.land_id) }}">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <div class="result">No land records found.</div>
+    {% endif %}
+</main>
+</body>
+</html>

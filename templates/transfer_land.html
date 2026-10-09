@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer Ownership - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('verify') }}">Verify</a>
+        <a href="{{ url_for('view_blockchain') }}">Blockchain</a>
+    </div>
+</nav>
+
+<div class="small-page">
+    <h1>Transfer Ownership</h1>
+    <div class="form-card">
+        {% if message %}
+            <div class="{{ 'success' if success else 'error' }}">{{ message }}</div>
+        {% endif %}
+        <form method="POST">
+            <label>Land ID</label>
+            <input type="text" name="land_id" placeholder="Example: LAND001" required>
+
+            <label>New Owner</label>
+            <input type="text" name="new_owner" required>
+
+            <button type="submit">Transfer Ownership</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

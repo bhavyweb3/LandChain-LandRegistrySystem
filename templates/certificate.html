@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificate - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="print-hide">
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div><a href="{{ url_for('dashboard') }}">Dashboard</a></div>
+</nav>
+
+<div class="certificate">
+    <h1>Land Ownership Certificate</h1>
+    <p>This certificate is generated from the LandChain academic blockchain prototype.</p>
+    <hr>
+    <p><b>Land ID:</b> {{ certificate.land_id }}</p>
+    <p><b>Owner:</b> {{ certificate.owner }}</p>
+    <p><b>Location:</b> {{ certificate.location }}</p>
+    <p><b>Area:</b> {{ certificate.area }} sq. ft.</p>
+    <p><b>Survey Number:</b> {{ certificate.survey_number }}</p>
+    <p><b>Blockchain Status:</b> {{ "Valid" if certificate.valid else "Invalid" }}</p>
+    <p><b>Blockchain Reference:</b> {{ certificate.reference }}</p>
+    <br>
+    <button class="print-hide" onclick="window.print()">Print Certificate</button>
+    <a class="button secondary print-hide" href="{{ url_for('dashboard') }}">Back</a>
+</div>
+</body>
+</html>

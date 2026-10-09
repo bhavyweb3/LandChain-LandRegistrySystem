@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Land Details - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('verify') }}">Verify</a>
+        <a href="{{ url_for('transfer') }}">Transfer</a>
+    </div>
+</nav>
+
+<main class="container">
+    <h1>Land Details</h1>
+    <div class="result">
+        <p><b>Land ID:</b> {{ land.land_id }}</p>
+        <p><b>Owner:</b> {{ land.owner }}</p>
+        <p><b>Location:</b> {{ land.location }}</p>
+        <p><b>Area:</b> {{ land.area }} sq. ft.</p>
+        <p><b>Survey Number:</b> {{ land.survey_number }}</p>
+        <p><b>Status:</b> {{ land.status }}</p>
+        <p><b>Blockchain:</b> <span class="{{ 'status-valid' if valid else 'status-invalid' }}">{{ 'Valid' if valid else 'Invalid' }}</span></p>
+    </div>
+
+    <div class="actions print-hide">
+        <a class="button" href="{{ url_for('certificate', land_id=land.land_id) }}">View Certificate</a>
+        <a class="button secondary" href="{{ url_for('transfer') }}">Transfer Ownership</a>
+    </div>
+
+    <h2>Transaction History</h2>
+    {% for block in records %}
+    <div class="block">
+        <p><b>Block:</b> {{ block.index }}</p>
+        <p><b>Time:</b> {{ block.timestamp }}</p>
+        <p><b>Transaction:</b> {{ block.land_data.get("transaction_type", "Genesis") }}</p>
+        <p><b>Hash:</b> <code>{{ block.hash }}</code></p>
+    </div>
+    {% endfor %}
+</main>
+</body>
+</html>

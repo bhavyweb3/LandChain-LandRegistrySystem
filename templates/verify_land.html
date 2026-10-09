@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Land - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('transfer') }}">Transfer</a>
+        <a href="{{ url_for('view_blockchain') }}">Blockchain</a>
+    </div>
+</nav>
+
+<main class="container">
+    <h1>Verify Land</h1>
+    <div class="form-card">
+        <form method="POST">
+            <label>Land ID</label>
+            <input type="text" name="land_id" value="{{ land_id }}" placeholder="Example: LAND001" required>
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+
+    {% if land_id %}
+        {% if records %}
+        <div class="result">
+            <h2>Land {{ land_id }}</h2>
+            <p><b>Current Owner:</b> {{ records[-1].land_data.get("owner", "") }}</p>
+            <p><b>Blockchain:</b> <span class="{{ 'status-valid' if valid else 'status-invalid' }}">{{ 'Valid' if valid else 'Invalid' }}</span></p>
+        </div>
+
+        <h2>Transaction History</h2>
+        {% for block in records %}
+        <div class="block">
+            <p><b>Block:</b> {{ block.index }}</p>
+            <p><b>Type:</b> {{ block.land_data.get("transaction_type", "Genesis") }}</p>
+            {% if block.land_data.get("previous_owner") %}
+                <p><b>Previous Owner:</b> {{ block.land_data.get("previous_owner") }}</p>
+            {% endif %}
+            <p><b>Owner:</b> {{ block.land_data.get("owner", "") }}</p>
+            <p><b>Hash:</b> <code>{{ block.hash }}</code></p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="error">Land ID {{ land_id }} was not found.</div>
+        {% endif %}
+    {% endif %}
+</main>
+</body>
+</html>

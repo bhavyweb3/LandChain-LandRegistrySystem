@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('home') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('verify') }}">Verify Land</a>
+        <a href="{{ url_for('login') }}">Login</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>LandChain</h1>
+    <h2>Blockchain Based Land Registry</h2>
+    <p>A simple academic prototype for registering land records, transferring ownership and checking blockchain integrity.</p>
+    <a class="button" href="{{ url_for('login') }}">Login</a>
+</section>
+
+<footer>LandChain - Student Project</footer>
+</body>
+</html>

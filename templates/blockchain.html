@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blockchain - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('transfer') }}">Transfer</a>
+        <a href="{{ url_for('verify') }}">Verify</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</nav>
+
+<main class="container">
+    <h1>Blockchain</h1>
+    <div class="result">
+        <b>Chain Status:</b>
+        <span class="{{ 'status-valid' if valid else 'status-invalid' }}">{{ 'Valid' if valid else 'Invalid' }}</span>
+        <br>
+        <b>Total Blocks:</b> {{ blockchain.chain|length }}
+    </div>
+
+    {% for block in blockchain.chain %}
+    <div class="block">
+        <h2>Block {{ block.index }}</h2>
+        <p><b>Time:</b> {{ block.timestamp }}</p>
+        <p><b>Transaction:</b> {{ block.land_data.get("transaction_type", "Genesis") }}</p>
+        {% if block.land_data.get("land_id") %}
+            <p><b>Land ID:</b> {{ block.land_data.get("land_id") }}</p>
+            <p><b>Owner:</b> {{ block.land_data.get("owner") }}</p>
+        {% endif %}
+        <p><b>Previous Hash:</b> <code>{{ block.previous_hash }}</code></p>
+        <p><b>Hash:</b> <code>{{ block.hash }}</code></p>
+    </div>
+    {% endfor %}
+</main>
+</body>
+</html>

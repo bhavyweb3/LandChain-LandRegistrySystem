@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Land - LandChain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a class="logo" href="{{ url_for('dashboard') }}">LandChain</a>
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('verify') }}">Verify</a>
+        <a href="{{ url_for('transfer') }}">Transfer</a>
+    </div>
+</nav>
+
+<div class="small-page">
+    <h1>Register Land</h1>
+    <div class="form-card">
+        {% if error %}<div class="error">{{ error }}</div>{% endif %}
+        <form method="POST">
+            <label>Land ID</label>
+            <input type="text" name="land_id" placeholder="Example: LAND003" required>
+
+            <label>Owner Name</label>
+            <input type="text" name="owner" required>
+
+            <label>Location</label>
+            <input type="text" name="location" required>
+
+            <label>Area (sq. ft.)</label>
+            <input type="text" name="area" required>
+
+            <label>Survey Number</label>
+            <input type="text" name="survey_number" required>
+
+            <button type="submit">Register Land</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
